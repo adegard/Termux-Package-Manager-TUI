@@ -14,8 +14,8 @@ case "$action" in
         | while read -r pkgname; do
             [ -z "$pkgname" ] && exit
             confirm=$(printf "Install\nCancel" | fzf --prompt="Install $pkgname > ")
-            [ "$confirm" = "Install" ] && pkg install "$pkgname"
-        done
+            [ "$confirm" = "Install" ] && pkg install -y "$pkgname"
+        done&& pkg uninstall "$pkgname"
         ;;
     "Installed")
         dpkg -l | awk '/^ii/ {print $2}' \
@@ -30,11 +30,11 @@ case "$action" in
         | fzf --prompt="Upgrade > " --preview="apt show {} 2>/dev/null" \
         | while read -r pkgname; do
             confirm=$(printf "Upgrade\nCancel" | fzf --prompt="Upgrade $pkgname > ")
-            [ "$confirm" = "Upgrade" ] && pkg upgrade "$pkgname"
+            [ "$confirm" = "Upgrade" ] && pkg upgrade -y "$pkgname"
         done
         ;;
     "Upgrade all")
-        pkg upgrade
+        pkg upgrade -y
         ;;
     "Exit")
         exit
