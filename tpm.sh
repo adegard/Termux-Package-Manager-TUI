@@ -9,7 +9,8 @@ action=$(printf "Search\nInstalled\nUpgrade\nUpgrade all\nExit" | fzf --prompt="
 
 case "$action" in
     "Search")
-        pkg search "" | fzf --prompt="Search > " --preview="echo {}" \
+        apt-cache search . \ 
+        | fzf --prompt="Search > " --preview="apt show {1} 2>/dev/null" \
         | awk '{print $1}' \
         | while read -r pkgname; do
             [ -z "$pkgname" ] && exit
