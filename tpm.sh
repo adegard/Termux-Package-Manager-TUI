@@ -22,7 +22,7 @@ case "$action" in
         | fzf --prompt="Installed > " --preview="apt show {} 2>/dev/null" \
         | while read -r pkgname; do
             confirm=$(printf "Remove\nCancel" | fzf --prompt="Remove $pkgname > ")
-            [ "$confirm" = "Remove" ] && pkg uninstall "$pkgname"
+            [ "$confirm" = "Remove" ] && pkg uninstall -y "$pkgname"
         done
         ;;
     "Upgrade")
