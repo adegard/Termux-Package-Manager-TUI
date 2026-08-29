@@ -34,3 +34,7 @@ source ~/.bashrc
 5. Use your alias
 
 tpm
+
+---
+
+For an overview of all my other projects, see https://adegard.github.io/blog/
